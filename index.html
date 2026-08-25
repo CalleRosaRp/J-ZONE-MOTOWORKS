@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>J-ZONE MOTOWORKS | Elite Engine Builder & Performance Shop</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,500;0,700;0,900;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; scroll-behavior: smooth; }
+        body { background-color: #0b0b0b; color: #ffffff; overflow-x: hidden; }
+        
+        /* Navbar */
+        header { display: flex; justify-content: space-between; align-items: center; padding: 15px 5%; background: rgba(17, 17, 17, 0.95); border-bottom: 2px solid #ff0033; position: fixed; width: 100%; top: 0; z-index: 1000; backdrop-filter: blur(10px); }
+        .logo-text { font-size: 20px; font-weight: 900; font-style: italic; color: #fff; letter-spacing: 2px; }
+        .logo-text span { color: #ff0033; text-shadow: 0 0 10px rgba(255,0,51,0.5); }
+        nav ul { display: flex; list-style: none; gap: 20px; }
+        nav ul li a { color: #cccccc; text-decoration: none; font-weight: 600; font-size: 13px; transition: 0.3s; text-transform: uppercase; }
+        nav ul li a:hover { color: #ff0033; }
+
+        /* Hero Section */
+        .hero { height: 100vh; background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.9)), url('https://media.discordapp.net/attachments/1533786147921199104/1541860212225351761/Gemini_Generated_Image_y2wa1qy2wa1qy2wa.jpg?ex=6a8f20b8&is=6a8dcf38&hm=e2474cd16f5a022173c8693f3cc8ca993f06bf6ba89726ccdbdcd5436e74ecc8&=&format=webp') no-repeat center center/cover; display: flex; align-items: center; justify-content: center; text-align: center; padding: 0 20px; }
+        .hero-content { max-width: 800px; width: 100%; }
+        .hero-content h1 { font-size: clamp(32px, 5vw, 52px); font-weight: 900; text-transform: uppercase; font-style: italic; margin-bottom: 20px; letter-spacing: 2px; }
+        .hero-content h1 span { color: #ff0033; text-shadow: 0 0 20px rgba(255,0,51,0.6); }
+        .hero-content p { font-size: clamp(14px, 2vw, 18px); color: #aaaaaa; max-width: 700px; margin: 0 auto 30px auto; line-height: 1.6; }
+        .btn { display: inline-block; padding: 14px 35px; background: #ff0033; color: #fff; font-weight: 900; text-decoration: none; font-style: italic; letter-spacing: 1px; border-radius: 4px; transition: 0.3s; box-shadow: 0 0 15px rgba(255,0,51,0.5); }
+        .btn:hover { background: #cc0029; transform: translateY(-3px); }
+
+        /* Stats Bar */
+        .stats-bar { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); background: #141414; border-top: 1px solid #222; border-bottom: 1px solid #222; padding: 30px 5%; text-align: center; gap: 20px; }
+        .stat-item h3 { font-size: clamp(28px, 4vw, 36px); font-weight: 900; font-style: italic; color: #ff0033; margin-bottom: 5px; }
+        .stat-item p { font-size: 13px; color: #888; text-transform: uppercase; font-weight: 600; }
+
+        /* Services */
+        .services { padding: 80px 5%; background: #0f0f0f; text-align: center; }
+        .section-title { font-size: clamp(28px, 4vw, 36px); font-weight: 900; font-style: italic; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 2px; }
+        .section-title span { color: #ff0033; }
+        .section-subtitle { color: #888; font-size: 15px; margin-bottom: 60px; }
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto; }
+        .service-card { background: #161616; padding: 40px 30px; border-radius: 6px; border-left: 4px solid #ff0033; text-align: left; transition: 0.3s; }
+        .service-card:hover { transform: translateY(-5px); background: #1c1c1c; }
+        .service-card i { font-size: 32px; color: #ff0033; margin-bottom: 20px; }
+        .service-card h3 { font-size: 22px; margin-bottom: 15px; font-style: italic; text-transform: uppercase; }
+        .service-card p { color: #888; font-size: 14px; line-height: 1.6; }
+
+        /* Build Achievements (Gallery) */
+        .achievements { padding: 80px 5%; background: #121212; text-align: center; }
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; max-width: 1200px; margin: 0 auto; }
+        .gallery-item { position: relative; overflow: hidden; border-radius: 6px; height: 280px; background: #151515; border: 1px solid #222; cursor: pointer; }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: 0.4s; }
+        .gallery-item:hover img { transform: scale(1.03); }
+        .gallery-overlay { position: absolute; bottom: 0; left: 0; width: 100%; padding: 15px; background: linear-gradient(transparent, rgba(0,0,0,0.9)); text-align: left; pointer-events: none; }
+        .gallery-overlay h4 { font-style: italic; font-size: 15px; color: #fff; }
+        .gallery-overlay p { font-size: 11px; color: #ff0033; font-weight: 700; text-transform: uppercase; }
+
+        /* Lightbox Modal */
+        #lightbox-modal { display: none; position: fixed; z-index: 2000; padding-top: 60px; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.95); text-align: center; }
+        #lightbox-modal img { margin: auto; max-width: 90%; max-height: 75vh; object-fit: contain; border: 2px solid #ff0033; border-radius: 4px; box-shadow: 0 0 25px rgba(255,0,51,0.5); }
+        #lightbox-close { position: absolute; top: 20px; right: 30px; color: #fff; font-size: 40px; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        #lightbox-close:hover { color: #ff0033; }
+
+        /* Contact & Location Section */
+        .contact-section { padding: 80px 5%; background: #0b0b0b; }
+        .contact-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 40px; max-width: 1200px; margin: 0 auto; }
+        .contact-info h3 { font-size: clamp(24px, 3vw, 28px); font-weight: 900; font-style: italic; margin-bottom: 20px; }
+        .contact-info p { color: #888; line-height: 1.6; margin-bottom: 30px; font-size: 14px; }
+        .contact-detail { display: flex; align-items: flex-start; gap: 15px; margin-bottom: 20px; color: #ddd; font-size: 14px; word-break: break-word; }
+        .contact-detail i { font-size: 20px; color: #ff0033; width: 30px; margin-top: 3px; flex-shrink: 0; }
+        .contact-detail a { color: #ddd; text-decoration: none; transition: 0.3s; }
+        .contact-detail a:hover { color: #ff0033; text-decoration: underline; }
+        
+        .map-box { background: #161616; border-radius: 8px; overflow: hidden; height: 350px; border: 1px solid #222; position: relative; width: 100%; }
+        .map-box iframe { width: 100%; height: 100%; border: 0; filter: contrast(1.1) brightness(0.9); }
+
+        /* Footer */
+        footer { text-align: center; padding: 25px 15px; background: #070707; color: #555; font-size: 12px; border-top: 1px solid #1a1a1a; }
+
+        /* Media Queries para sa mas maliliit na Cellphones */
+        @media (max-width: 768px) {
+            header { padding: 12px 20px; flex-direction: column; gap: 10px; }
+            nav ul { gap: 15px; flex-wrap: wrap; justify-content: center; }
+            nav ul li a { font-size: 11px; }
+            .hero { padding-top: 60px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <header>
+        <div class="logo-text">J-ZONE <span>MOTOWORKS</span></div>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#achievements">Builds</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Elite Engine Building & <span>Performance Tuning</span></h1>
+            <p>Custom engine builds, precision CVT optimization, and complete periodic maintenance designed for maximum power, smooth response, and reliability.</p>
+            <a href="#contact" class="btn">Inquire / Book </a>
+        </div>
+    </section>
+
+    <!-- Stats Bar -->
+    <section class="stats-bar">
+        <div class="stat-item">
+            <h3>150+</h3>
+            <p>Engines Built & Tuned</p>
+        </div>
+        <div class="stat-item">
+            <h3>100%</h3>
+            <p>Precision Engineering</p>
+        </div>
+        <div class="stat-item">
+            <h3>Top</h3>
+            <p>Tier Racing Performance</p>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <h2 class="section-title">Our Expert <span>Services</span></h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <i class="fa-solid fa-gears"></i>
+                <h3>Engine Build</h3>
+                <p>Custom high-performance engine assembly, porting & polishing, internal upgrades, and heavy machining para sa maximum horsepower at tibay.</p>
+            </div>
+            <div class="service-card">
+                <i class="fa-solid fa-gauge-high"></i>
+                <h3>CVT Tuning</h3>
+                <p>Optimize ang hatak at acceleration ng scooter o automatic motor mo. Tamang timpla ng bola, pulley, clutch assembly, at torque drive para sa smooth na takbo.</p>
+            </div>
+            <div class="service-card">
+                <i class="fa-solid fa-screwdriver-wrench"></i>
+                <h3>PMS Motor</h3>
+                <p>(Periodic Maintenance Service) Kumpletong linis, check-up, tune-up, at change oil para mapanatiling sariwa, malusog, at maaasahan ang iyong makina araw-araw.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Build Achievements / Gallery Section -->
+    <section class="achievements" id="achievements">
+        <h2 class="section-title">Build <span>Achievements</span></h2>
+        <div class="gallery-grid">
+            <div class="gallery-item" onclick="openLightbox(this.querySelector('img').src)">
+                <img src="https://media.discordapp.net/attachments/1533786147921199104/1541861479282774016/77EBCA1A-0FBB-4C8D-8B14-79205E45D5F2.jpg?ex=6a8f21e7&is=6a8dd067&hm=11f8e9f731bb7d4f955d13caca9f45c49ee5672604dd452582e059ef33bc91ae&=&format=webp&width=575&height=1024" alt="Build 1">
+                <div class="gallery-overlay">
+                    <p>Custom Engine Build</p>
+                    <h4>Sniper 155 215cc Done By Yours Truly</h4>
+                </div>
+            </div>
+
+            <div class="gallery-item" onclick="openLightbox(this.querySelector('img').src)">
+                <img src="https://images.unsplash.com/photo-1609630875172-23c2a297e682?auto=format&fit=crop&w=800&q=80" alt="Build 2">
+                <div class="gallery-overlay">
+                    <p>unknown</p>
+                    <h4>blank</h4>
+                </div>
+            </div>
+
+             <div class="gallery-item" onclick="openLightbox(this.querySelector('img').src)">
+                <img src="https://images.unsplash.com/photo-1609630875172-23c2a297e682?auto=format&fit=crop&w=800&q=80" alt="Build 3">
+                <div class="gallery-overlay">
+                    <p>unknown</p>
+                    <h4>blank</h4>
+                </div>
+            </div>
+
+             <div class="gallery-item" onclick="openLightbox(this.querySelector('img').src)">
+                <img src="https://images.unsplash.com/photo-1609630875172-23c2a297e682?auto=format&fit=crop&w=800&q=80" alt="Build 4">
+                <div class="gallery-overlay">
+                    <p>unknown</p>
+                    <h4>blank</h4>
+                </div>
+            </div>
+
+             <div class="gallery-item" onclick="openLightbox(this.querySelector('img').src)">
+                <img src="https://images.unsplash.com/photo-1609630875172-23c2a297e682?auto=format&fit=crop&w=800&q=80" alt="Build 5">
+                <div class="gallery-overlay">
+                    <p>unknown</p>
+                    <h4>blank</h4>
+                </div>
+            </div>
+
+            <div class="gallery-item" onclick="openLightbox(this.querySelector('img').src)">
+                <img src="https://images.unsplash.com/photo-1609630875172-23c2a297e682?auto=format&fit=crop&w=800&q=80" alt="Build 6">
+                <div class="gallery-overlay">
+                    <p>unknown</p>
+                    <h4>blank</h4>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lightbox Modal Popup -->
+    <div id="lightbox-modal" onclick="closeLightbox()">
+        <span id="lightbox-close">&times;</span>
+        <img id="lightbox-img" src="">
+    </div>
+
+    <!-- Contact & Location Section -->
+    <section class="contact-section" id="contact">
+        <div class="contact-container">
+            <div class="contact-info">
+                <h3>Get In Touch With Us</h3>
+                <p>May gusto ka bang ipagawa o ipasadyang makina? I-message lang kami o bisitahin sa aming shop para mapag-usapan ang build mo.</p>
+                
+                <div class="contact-detail">
+                    <i class="fa-brands fa-facebook"></i>
+                    <a href="https://www.facebook.com/jzonemotoworks" target="_blank">J-ZONE Motoworks Official Facebook Page</a>
+                </div>
+                <div class="contact-detail">
+                    <i class="fa-solid fa-envelope"></i>
+                    <a href="mailto:jzonemotoworks@gmail.com">jzonemotoworks@gmail.com</a>
+                </div>
+                <div class="contact-detail">
+                    <i class="fa-solid fa-phone"></i>
+                    <a href="tel:+639000000000">+63 900 000 0000</a>
+                </div>
+                <div class="contact-detail">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <a href="https://www.google.com/maps?q=15.592097,120.8777858" target="_blank">
+                        <strong>321, Purok 5, Malasin, Santo Domingo, Philippines, 3133</strong><br>
+                        <span style="font-size: 12px; color: #ff0033;">📍 Click Here</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Embedded Google Map -->
+            <div class="map-box">
+                <iframe src="https://maps.google.com/maps?q=15.592097,120.8777858&z=17&output=embed" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 J-ZONE MOTOWORKS. All Rights Reserved.</p>
+    </footer>
+
+    <!-- JavaScript para sa Click-to-Zoom Lightbox -->
+    <script>
+        function openLightbox(imgSrc) {
+            const modal = document.getElementById('lightbox-modal');
+            const modalImg = document.getElementById('lightbox-img');
+            modal.style.display = "block";
+            modalImg.src = imgSrc;
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox-modal').style.display = "none";
+        }
+    </script>
+
+</body>
+</html>
